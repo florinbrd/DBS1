@@ -1,0 +1,47 @@
+Create schema "Bank";
+
+set search_path to "Bank";
+
+create table Payments
+(
+	invoiceNumber varchar(5),
+	customer varchar(20),
+	value varchar(10),
+	primary key(invoiceNumber)
+)
+
+create table deptors
+(
+	invoiceNumber varchar(5),
+	customer varchar(20),
+	value varchar(10),
+	primary key(invoiceNumber)
+)
+
+insert into Payments(invoiceNumber, customer, value) values
+('123','Peter','200'),
+('234','Soren','500'),
+('345','Soren','400'),
+('456','Peter','66'),
+('567','Trine','50'),
+('1212','Biels','87'),
+('1313','Viggo','99');
+
+insert into deptors(invoiceNumber, customer, value) values
+('012','Hans','600'),
+('123','Peter','200'),
+('234','Soren','500'),
+('345','Soren','400'),
+('456','Peter','66'),
+('567','Trine','50');
+
+select payments.invoiceNumber, payments.customer, payments.value from payments inner join deptors 
+on payments.invoiceNumber = deptors.invoiceNumber;
+
+select deptors.invoiceNumber, deptors.customer, deptors.value from payments right join deptors 
+on payments.invoiceNumber = deptors.invoiceNumber
+where payments.invoiceNumber is null;
+
+select payments.invoiceNumber, payments.customer, payments.value from payments left join deptors 
+on payments.invoiceNumber = deptors.invoiceNumber
+where deptors.invoiceNumber is null;

@@ -1,0 +1,156 @@
+create schema "Snow school";
+set search_path = "Snow school";
+
+create domain D_customerNo integer;
+create domain D_classId as char(4) check (value > 'B001' and value < 'B999'
+    or value > 'I001' and value < 'I999' or value  > 'A001' and value  < 'A999');
+create domain D_schoolId as char(5) check (value > 'SB001' and value  < 'SB999');
+create domain D_schoolName as varchar(25);
+create domain D_rating as decimal(2, 1) check (value between 0.0 and 5.0);
+create domain D_serviceType as char(20) constraint con_serviceType check (value in ('Billing', 'Booking', 'Group Sales'));
+create domain D_salary as decimal(7, 2) check (value between 6000.00 and 40000.00);
+
+create table Customer (
+customerNo D_customerNo not null,
+firstName varchar(10) not null,
+lastName varchar(15) not null,
+phoneNumber varchar(13) not null,
+age integer not null,
+eMail varchar(30) not null,
+address varchar(35) not null,
+constraint customerPK primary key (customerNo)
+);
+
+create table Booking (
+customerNo D_customerNo not null,
+classId D_classId not null,
+bookingNumber varchar(8) not null,
+bookingDate date not null,
+price decimal(5, 2) not null,
+constraint bookingPK primary key (customerNo, classID)
+);
+
+alter table Booking add constraint customerNo_FK foreign key (customerNo)
+references Customer(customerNo) on update cascade on delete set null;
+
+create table Class (
+classId D_classId not null,
+startDate date not null,
+endDate date not null,
+price decimal(5, 2) not null,
+schoolID D_schoolId not null,
+teacherNo integer not null,
+constraint classPK primary key (classID)
+);
+
+alter table Booking add constraint classId_FK foreign key (classID)
+references Class(classID) on update cascade on delete set null;
+
+create table ContactPerson (
+customerNo D_customerNo not null,
+name varchar(25) not null,
+phoneNumber varchar(13) not null,
+constraint contactPersonPK primary key (customerNo)
+);
+
+alter table ContactPerson add constraint customerNo_FK foreign key (customerNo)
+references Customer(customerNo) on update cascade on delete set null;
+
+create table School (
+schoolID D_schoolId not null,
+phoneNumber varchar(13) not null,
+open char(5) not null,
+closed char(5) not null,
+address varchar(35) not null,
+schoolName D_schoolName not null,
+constraint schoolPK primary key (schoolId)
+);
+
+create table Staff (
+staffNo integer not null,
+managerNo integer not null,
+firstName varchar(10) not null,
+lastName varchar(15) not null,
+age integer not null,
+salary D_salary not null,
+schoolID D_schoolId not null,
+constraint staffPK primary key (staffNo)
+);
+
+alter table Staff add constraint schoolId_FK foreign key (schoolId)
+references School(schoolId) on update cascade on delete set null;
+
+create table PhoneNumber (
+phoneNumber varchar(13) not null,
+schoolId D_schoolId not null,
+constraint phoneNumberPK primary key (phoneNumber)
+);
+
+alter table PhoneNumber add constraint schoolId_FK foreign key (schoolId)
+references School(schoolId) on update cascade on delete set null;
+
+alter table School add constraint phoneNumber_FK foreign key (phoneNumber)
+references PhoneNumber(phoneNumber) on update cascade on delete set null;
+
+create table Teacher (
+staffNo integer not null,
+managerNo integer not null,
+firstName varchar(10) not null,
+lastName varchar(15) not null,
+age integer not null,
+salary D_salary not null,
+schoolID D_schoolId not null,
+rating D_rating not null,
+constraint teacherPK primary key (staffNo)
+);
+
+alter table Teacher add constraint schoolId_FK foreign key (schoolId)
+references School(schoolId) on update cascade on delete set null;
+
+create table Manager (
+staffNo integer not null,
+managerNo integer,
+firstName varchar(10) not null,
+lastName varchar(15) not null,
+age integer not null,
+salary D_salary not null,
+schoolID D_schoolId not null,
+bonus integer not null,
+constraint managerPK primary key (staffNo)
+);
+
+alter table Manager add constraint schoolId_FK foreign key (schoolId)
+references School(schoolId) on update cascade on delete set null;
+
+alter table Manager add constraint managerNo_FK foreign key (managerNo)
+references Manager(staffNo) on update cascade on delete set null;
+
+alter table Staff add constraint managerNo_FK foreign key (managerNo)
+references Manager(staffNo) on update cascade on delete set null;
+
+alter table Teacher add constraint managerNo_FK foreign key (managerNo)
+references Manager(staffNo) on update cascade on delete set null;
+
+create table CustomerService (
+staffNo integer not null,
+managerNo integer,
+firstName varchar(10) not null,
+lastName varchar(15) not null,
+age integer not null,
+salary D_salary not null,
+schoolID D_schoolId not null,
+serviceType D_serviceType not null,
+constraint customerServicePK primary key (staffNo)
+);
+
+alter table CustomerService add constraint schoolId_FK foreign key (schoolId)
+references School(schoolId) on update cascade on delete set null;
+
+alter table CustomerService add constraint managerNo_FK foreign key (managerNo)
+references Manager(staffNo) on update cascade on delete set null;
+
+
+
+insert into Customer(CUSTOMERNO, FIRSTNAME, LASTNAME, PHONENUMBER, AGE, EMAIL, ADDRESS) VALUES
+('21456', 'Eduard', 'Fiscer', '4550272453', '23', 'eduard@gmail.com', 'Secret address'),
+('23135', 'Toma', 'Chan', '4553623641', '27', 'toma@hotmail.com', 'Sample address');

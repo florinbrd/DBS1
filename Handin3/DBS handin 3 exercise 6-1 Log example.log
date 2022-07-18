@@ -1,0 +1,423 @@
+2019-09-19 10:39:35 CEST ERROR:  type "d_propertyno" already exists
+2019-09-19 10:39:35 CEST STATEMENT:  create domain d_propertyno char(4);
+	create domain d_type varchar(10);
+	create domain d_rooms int;
+	create domain d_rent int;
+	create domain d_ownerno varchar(4);
+2019-09-19 10:54:05 CEST ERROR:  INSERT has more expressions than target columns at character 186
+2019-09-19 10:54:05 CEST STATEMENT:  insert into propertyforrent (propertyno, street, city, postcode, type, rent, ownerno, staffno, branchno)
+	values ('PA14','16 Holhead','Aberdeen','AB7 5SU','House','6','650','CO46','SA9','B007'),
+	('PL94','6 Argyll St','London','NW2','Flat','4','400','CO87','SL41','B998'),
+	('PG4','6 Lawrence St','Glasgow','G11 9QX','Flat','3','350','CO40','','B003'),
+	('PG36','2 Manor RD','Glasgow','G32 4QX','Flat','3','375','CO93','SG37','B003'),
+	('PG21','18 Dale Rd','Glasgow','G12','House','5','600','CO87','SG37','B003'),
+	('PG16','5 Novar Dr','Glasgow','G12 9AX','Flat','4','450','CO93','SG14','B003');
+2019-09-19 11:28:08 CEST ERROR:  value too long for type character varying(2)
+2019-09-19 11:28:08 CEST STATEMENT:  INSERT INTO Client VALUES ('CR76', 'John', 'Kay',     '0207-774-5632', 'Flat',  425);
+	INSERT INTO Client VALUES ('CR56', 'Aline','Stewart', '0141-848-1825', 'Flat',  350);
+	INSERT INTO Client VALUES ('CR74', 'Mike', 'Ritchie', '01475-392178',  'House', 750);
+	INSERT INTO Client VALUES ('CR62', 'Mary', 'Tregar',  '01224-196720',  'Flat',  600);
+2019-09-19 11:31:07 CEST ERROR:  insert or update on table "propertyforrent" violates foreign key constraint "fk_staffno"
+2019-09-19 11:31:07 CEST DETAIL:  Key (staffno)=(    ) is not present in table "staff".
+2019-09-19 11:31:07 CEST STATEMENT:  alter table propertyforrent add constraint FK_staffno foreign key(staffno)
+	references staff(staffno) on update cascade on delete set null;
+2019-09-19 11:33:59 CEST ERROR:  insert or update on table "propertyforrent" violates foreign key constraint "fk_staffno"
+2019-09-19 11:33:59 CEST DETAIL:  Key (staffno)=(    ) is not present in table "staff".
+2019-09-19 11:33:59 CEST STATEMENT:  alter table propertyforrent add constraint FK_staffno foreign key(staffno)
+	references staff(staffno) on update cascade on delete set null;
+2019-09-25 17:36:22 CEST ERROR:  syntax error at or near "'DM_1'" at character 17
+2019-09-25 17:36:22 CEST STATEMENT:  set search_path 'DM_1'
+2019-09-25 17:53:05 CEST ERROR:  syntax error at or near "(" at character 89
+2019-09-25 17:53:05 CEST STATEMENT:  create table PrivateOwner
+	(
+		d_ownerno ownerNo,
+		d_firstname fName,
+		d_lastname lName,
+		(d_street + ", " + d_city + " " + d_postcode) address,
+		d_telno telNo,
+		d_email email,
+		d_password password
+	);
+2019-09-25 18:00:15 CEST ERROR:  type "ownerno" does not exist at character 40
+2019-09-25 18:00:15 CEST STATEMENT:  create table PrivateOwner
+	(
+		d_ownerno ownerNo,
+		d_firstname fName,
+		d_lastname lName,
+		d_adress address,
+		d_telno telNo,
+		d_email email,
+		d_password password
+	);
+2019-09-25 18:01:31 CEST ERROR:  relation "privatowner" does not exist at character 13
+2019-09-25 18:01:31 CEST STATEMENT:  INSERT INTO PrivatOwner VALUES ('CO46', 'Joe',  'Keogh', '2 Fergus Dr, Aberdeen AB2 7SX','01224-861212');
+	INSERT INTO PrivatOwner VALUES ('CO87', 'Carol','Farrel','6 Achray St, Glasgow G32 9DX', '0141-357-7419');
+	INSERT INTO PrivatOwner VALUES ('CO40', 'Tina', 'Murphy','63 Well St, Glasgow G42',      '0141-943-1728');
+	INSERT INTO PrivatOwner VALUES ('CO93', 'Tony', 'Shaw',  '12 Park Pl, Glasgow G4 0QR',   '0141-225-7025');
+2019-09-25 18:08:12 CEST ERROR:  syntax error at or near "primary" at character 30
+2019-09-25 18:08:12 CEST STATEMENT:  alter table PrivateOwner set primary key ownerNo;
+2019-09-25 18:16:13 CEST ERROR:  syntax error at or near "KEY" at character 123
+2019-09-25 18:16:13 CEST STATEMENT:  create table Viewing
+	(
+		clientNo d_clientno,
+		propertyNo d_propertyno,
+		viewDate d_viewDate,
+		comment d_comment.
+		PRIMARY KEY (clientNo),
+	    FOREIGN KEY (propertyNo) REFERENCES Persons(propertyforrent)
+	);
+2019-09-25 18:16:32 CEST ERROR:  syntax error at or near "key" at character 123
+2019-09-25 18:16:32 CEST STATEMENT:  create table Viewing
+	(
+		clientNo d_clientno,
+		propertyNo d_propertyno,
+		viewDate d_viewDate,
+		comment d_comment.
+		primary key (clientNo),
+	    FOREIGN KEY (propertyNo) REFERENCES Persons(propertyforrent)
+	);
+2019-09-25 18:17:17 CEST ERROR:  relation "persons" does not exist
+2019-09-25 18:17:17 CEST STATEMENT:  create table Viewing
+	(
+		clientNo d_clientno,
+		propertyNo d_propertyno,
+		viewDate d_viewDate,
+		comment d_comment,
+		primary key (clientNo),
+	    FOREIGN KEY (propertyNo) REFERENCES Persons(propertyforrent)
+	);
+2019-09-25 18:18:45 CEST ERROR:  duplicate key value violates unique constraint "viewing_pkey"
+2019-09-25 18:18:45 CEST DETAIL:  Key (clientno)=(CR56) already exists.
+2019-09-25 18:18:45 CEST STATEMENT:  INSERT INTO Viewing VALUES ('CR56', 'PA14', '2001-05-24', 'too small');
+	INSERT INTO Viewing VALUES ('CR76', 'PG4',  '2001-04-20', 'too --ote');
+	INSERT INTO Viewing VALUES ('CR56', 'PG4',  '2001-05-26', NULL);
+	INSERT INTO Viewing VALUES ('CR62', 'PA14', '2001-05-14', 'no dining room');
+	INSERT INTO Viewing VALUES ('CR56', 'PG36', '2001-04-28', NULL);
+2019-09-25 18:20:38 CEST ERROR:  duplicate key value violates unique constraint "viewing_pkey"
+2019-09-25 18:20:38 CEST DETAIL:  Key (clientno)=(CR56) already exists.
+2019-09-25 18:20:38 CEST STATEMENT:  INSERT INTO Viewing VALUES ('CR56', 'PA14', '2001-05-24', 'too small');
+	INSERT INTO Viewing VALUES ('CR76', 'PG4',  '2001-04-20', 'too --ote');
+	INSERT INTO Viewing VALUES ('CR56', 'PG4',  '2001-05-26', NULL);
+	INSERT INTO Viewing VALUES ('CR62', 'PA14', '2001-05-14', 'no dining room');
+	INSERT INTO Viewing VALUES ('CR56', 'PG36', '2001-04-28', NULL);
+2019-09-25 18:20:53 CEST ERROR:  duplicate key value violates unique constraint "viewing_pkey"
+2019-09-25 18:20:53 CEST DETAIL:  Key (clientno)=(CR56) already exists.
+2019-09-25 18:20:53 CEST STATEMENT:  INSERT INTO Viewing VALUES ('CR56', 'PA14', '2001-05-24', 'too small');
+	INSERT INTO Viewing VALUES ('CR76', 'PG4',  '2001-04-20', 'too --ote');
+	INSERT INTO Viewing VALUES ('CR56', 'PG4',  '2001-05-26', NULL);
+	INSERT INTO Viewing VALUES ('CR62', 'PA14', '2001-05-14', 'no dining room');
+	INSERT INTO Viewing VALUES ('CR56', 'PG36', '2001-04-28', NULL);
+2019-09-25 18:20:57 CEST ERROR:  duplicate key value violates unique constraint "viewing_pkey"
+2019-09-25 18:20:57 CEST DETAIL:  Key (clientno)=(CR56) already exists.
+2019-09-25 18:20:57 CEST STATEMENT:  INSERT INTO Viewing VALUES ('CR56', 'PA14', '2001-05-24', 'too small');
+	INSERT INTO Viewing VALUES ('CR76', 'PG4',  '2001-04-20', 'too --ote');
+	INSERT INTO Viewing VALUES ('CR56', 'PG4',  '2001-05-26', NULL);
+	INSERT INTO Viewing VALUES ('CR62', 'PA14', '2001-05-14', 'no dining room');
+	INSERT INTO Viewing VALUES ('CR56', 'PG36', '2001-04-28', NULL);
+2019-09-25 18:22:07 CEST ERROR:  could not create unique index "pk_viewing"
+2019-09-25 18:22:07 CEST DETAIL:  Key (clientno)=(CR56) is duplicated.
+2019-09-25 18:22:07 CEST STATEMENT:  alter table Viewing add constraint PK_viewing primary key (clientNo);
+2019-09-25 18:26:52 CEST ERROR:  syntax error at or near "," at character 102
+2019-09-25 18:26:52 CEST STATEMENT:  create table registration
+	(
+		clientNo d_clientNo,
+		branch d_branchno,
+		staffNo d_staffno,
+		dateJoined, d_datejoined,
+		FOREIGN KEY (clientNo) REFERENCES Client(clientNo);
+	)
+2019-09-25 18:27:00 CEST ERROR:  syntax error at or near ";" at character 169
+2019-09-25 18:27:00 CEST STATEMENT:  
+	create table registration
+	(
+		clientNo d_clientNo,
+		branch d_branchno,
+		staffNo d_staffno,
+		dateJoined d_datejoined,
+		FOREIGN KEY (clientNo) REFERENCES Client(clientNo);
+	)
+2019-09-25 18:27:08 CEST ERROR:  there is no unique constraint matching given keys for referenced table "client"
+2019-09-25 18:27:08 CEST STATEMENT:  create table registration
+	(
+		clientNo d_clientNo,
+		branch d_branchno,
+		staffNo d_staffno,
+		dateJoined d_datejoined,
+		FOREIGN KEY (clientNo) REFERENCES Client(clientNo)
+	);
+2019-09-25 18:27:32 CEST ERROR:  there is no unique constraint matching given keys for referenced table "client"
+2019-09-25 18:27:32 CEST STATEMENT:  create table registration
+	(
+		clientNo d_clientNo,
+		branch d_branchno,
+		staffNo d_staffno,
+		dateJoined d_datejoined,
+		FOREIGN KEY (clientNo) REFERENCES Client(clientno)
+	);
+2019-09-25 18:28:30 CEST ERROR:  duplicate key value violates unique constraint "pk_clientno"
+2019-09-25 18:28:30 CEST DETAIL:  Key (clientno)=(CR76) already exists.
+2019-09-25 18:28:30 CEST STATEMENT:  INSERT INTO Client VALUES ('CR76', 'John', 'Kay',     '0207-774-5632', 'Flat',  425);
+	INSERT INTO Client VALUES ('CR56', 'Aline','Stewart', '0141-848-1825', 'Flat',  350);
+	INSERT INTO Client VALUES ('CR74', 'Mike', 'Ritchie', '01475-392178',  'House', 750);
+	INSERT INTO Client VALUES ('CR62', 'Mary', 'Tregar',  '01224-196720',  'Flat',  600);
+2019-09-25 18:29:50 CEST ERROR:  duplicate key value violates unique constraint "pk_clientno"
+2019-09-25 18:29:50 CEST DETAIL:  Key (clientno)=(CR76) already exists.
+2019-09-25 18:29:50 CEST STATEMENT:  INSERT INTO Client VALUES ('CR76', 'John', 'Kay',     '0207-774-5632', 'Flat',  425);
+	INSERT INTO Client VALUES ('CR56', 'Aline','Stewart', '0141-848-1825', 'Flat',  350);
+	INSERT INTO Client VALUES ('CR74', 'Mike', 'Ritchie', '01475-392178',  'House', 750);
+	INSERT INTO Client VALUES ('CR62', 'Mary', 'Tregar',  '01224-196720',  'Flat',  600);
+2019-09-25 18:30:00 CEST ERROR:  duplicate key value violates unique constraint "pk_clientno"
+2019-09-25 18:30:00 CEST DETAIL:  Key (clientno)=(CR76) already exists.
+2019-09-25 18:30:00 CEST STATEMENT:  
+	INSERT INTO Client VALUES ('CR76', 'John', 'Kay',     '0207-774-5632', 'Flat',  425);
+	INSERT INTO Client VALUES ('CR56', 'Aline','Stewart', '0141-848-1825', 'Flat',  350);
+	INSERT INTO Client VALUES ('CR74', 'Mike', 'Ritchie', '01475-392178',  'House', 750);
+	INSERT INTO Client VALUES ('CR62', 'Mary', 'Tregar',  '01224-196720',  'Flat',  600);
+2019-09-25 18:30:49 CEST ERROR:  syntax error at or near ";" at character 75
+2019-09-25 18:30:49 CEST STATEMENT:  alter table registration add constraint FK_clientno foreign key (clientNo);
+2019-09-25 18:31:30 CEST ERROR:  syntax error at or near "FK_clientno" at character 42
+2019-09-25 18:31:30 CEST STATEMENT:  alter table registration add foreign key FK_clientno references client(clientNo);
+2019-09-26 08:51:58 CEST ERROR:  syntax error at or near "regristration" at character 10
+2019-09-26 08:51:58 CEST STATEMENT:  select * regristration;
+2019-09-26 08:52:04 CEST ERROR:  relation "regristration" does not exist at character 15
+2019-09-26 08:52:04 CEST STATEMENT:  select * from regristration;
+2019-09-26 09:31:06 CEST ERROR:  column "brancno" does not exist at character 8
+2019-09-26 09:31:06 CEST HINT:  Perhaps you meant to reference the column "staff.branchno".
+2019-09-26 09:31:06 CEST STATEMENT:  select brancno from staff
+2019-09-26 09:32:55 CEST ERROR:  syntax error at or near "desc" at character 46
+2019-09-26 09:32:55 CEST STATEMENT:  select distinct branchno from staff order by desc branchno;
+2019-09-26 09:36:54 CEST ERROR:  type "d_password" already exists
+2019-09-26 09:36:54 CEST STATEMENT:  create domain d_password as varchar(20);
+	create domain d_adress as varchar(50);
+	
+	create table PrivateOwner
+	(
+		ownerNo d_ownerno,
+		fName d_firstname,
+		lName d_lastname,
+		address d_adress,
+		telNo d_telno,
+		email d_email,
+		password d_password 
+	);
+	
+	alter table client add constraint PK_clientno primary key (clientno);
+	
+	INSERT INTO PrivateOwner VALUES ('CO46', 'Joe',  'Keogh', '2 Fergus Dr, Aberdeen AB2 7SX','01224-861212');
+	INSERT INTO PrivateOwner VALUES ('CO87', 'Carol','Farrel','6 Achray St, Glasgow G32 9DX', '0141-357-7419');
+	INSERT INTO PrivateOwner VALUES ('CO40', 'Tina', 'Murphy','63 Well St, Glasgow G42',      '0141-943-1728');
+	INSERT INTO PrivateOwner VALUES ('CO93', 'Tony', 'Shaw',  '12 Park Pl, Glasgow G4 0QR',   '0141-225-7025');
+	
+	create table Viewing
+	(
+		clientNo d_clientno,
+		propertyNo d_propertyno,
+		viewDate d_viewDate,
+		comment d_comment,
+		primary key (clientNo),
+	    FOREIGN KEY (propertyNo) REFERENCES propertyforrent(propertyNo)
+	);
+	
+	alter table registration add foreign key (clientNo) references client(clientNo);
+	
+	INSERT INTO Viewing VALUES ('CR56', 'PA14', '2001-05-24', 'too small');
+	INSERT INTO Viewing VALUES ('CR76', 'PG4',  '2001-04-20', 'too --ote');
+	INSERT INTO Viewing VALUES ('CR56', 'PG4',  '2001-05-26', NULL);
+	INSERT INTO Viewing VALUES ('CR62', 'PA14', '2001-05-14', 'no dining room');
+	INSERT INTO Viewing VALUES ('CR56', 'PG36', '2001-04-28', NULL);
+	
+	select * from viewing;
+	
+	create table registration
+	(
+		clientNo d_clientNo,
+		branch d_branchno,
+		staffNo d_staffno,
+		dateJoined d_datejoined,
+		FOREIGN KEY (clientNo) REFERENCES Client(clientno)
+	);
+	
+	
+	
+	INSERT INTO Registration VALUES ('CR76', 'B005', 'SL41', '2001-01-02');
+	INSERT INTO Registration VALUES ('CR56', 'B003', 'SG37', '2000-04-11');
+	INSERT INTO Registration VALUES ('CR74', 'B003', 'SG37', '1999-11-16');
+	INSERT INTO Registration VALUES ('CR62', 'B007', 'SA9',  '2000-03-07');
+	
+	select * from registration;
+	
+	set search_path = 'dm_2';
+	
+	Create schema "DH_jca";
+	
+	set search_path = 'DH_jca';
+	
+	create domain d_branchno as char(4); 
+	alter domain d_branchno add CONSTRAINT d_con_branchno CHECK (value > 'B001' and value < 'B999');
+	Create domain d_street as varchar(25);
+	create domain d_city as varchar(15);
+	create domain d_postcode as varchar(8);
+	create domain d_sex as char(1) DEFAULT 'M' check (value in ('M','F'));
+	create domain d_dob as date CHECK ( value  > '01-JAN-1920');
+	create domain d_salary as decimal(7,2) CONSTRAINT d_con_Salary check (value between 6000.00 and 40000.00);
+	
+	Create table Branch (
+	branchno d_branchno not null UNIQUE,
+	street d_street not null,
+	city d_city not null,
+	postcode d_postcode not null,
+	primary key (branchno));
+	
+	create domain d_name as varchar(15);
+	create domain d_position as varchar(15) check (value in ('Manager', 'Assistant','Supervisor' ));
+	create domain d_staffno as char(4);	
+															 
+	create table Staff ( 
+	staffno d_staffno,
+	fname d_name not null,
+	lname d_name not null ,
+	position d_position,
+	sex d_sex not null,
+	DOB d_dob,
+	salary d_salary ,
+	branchno d_branchno,
+	primary key (staffno)
+	);
+	alter table staff add constraint fk_branchno foreign key (branchno) references branch(branchno)	on update cascade on delete set null;
+	create domain d_propertyno as char(4);
+	create domain 	d_room char(1);													 
+	create domain d_rent as decimal(6,0) check (value > 0)	;													 
+	create domain d_type as char(6);	
+	create domain d_ownerno as char(4);
+	
+	
+															 
+													 
+															 
+															 
+	create table PropertyForRent (
+	Propertyno d_propertyno primary key,
+	Street d_street,
+	City d_city,
+	Postcode d_postcode,
+	type d_type,
+	Rooms d_room,
+	Rent d_rent,
+	OwnerNo d_ownerno,
+	staffNo d_staffno references staff(staffno),
+	BranchNo d_branchno references branch(branchno)
+	
+	);
+	
+	create domain d_clientno as char(4);														 
+	create domain d_telno as varchar(15);														 
+	create domain d_pretype as varchar(10);	
+	create domain d_email as varchar(25);
+														
+															 
+	Create table Client(
+	Clientno d_clientno primary key,
+	fname d_name,
+	lname d_name,
+	telno d_telno,
+	preType d_pretype,
+	maxRent d_rent,
+	eMail d_email
+	);
+	
+	
+	create domain d_address varchar(40);
+	create domain d_password as varchar(20);														 
+															 
+									 
+	
+	Create table PrivatOwner (
+	Ownerno d_ownerno,
+	fName d_name,
+	lName d_name,
+	address d_address,
+	telNo d_telno,
+	eMail d_email,
+	password d_password,
+	
+	primary key(Ownerno));														 
+															 
+	create domain d_comment as text;													 
+	Create table Viewing (
+	clientNo d_clientno references client(clientNo),
+	propertyNo d_propertyno references propertyforrent(propertyNo),
+	ViewDate date,
+	Comment d_comment,
+	primary key (clientNo,propertyNo));
+	
+	Create table Registration (
+	clientno d_clientno references client(clientno),
+	branchno d_branchno references branch(branchno),
+	staffNo d_staffno references staff(staffno),
+	dateJoined date,
+	Primary Key(clientno));	
+	
+				
+	INSERT INTO Branch VALUES ('B005', '22 Deer Rd',   'London',   'SW1 4EH');
+	INSERT INTO Branch VALUES ('B007', '16 Argyll St', 'Aberdeen', 'AB2 3SU');
+	INSERT INTO Branch VALUES ('B003', '163 Main St',  'Glasgow',  'G11 9QX');
+	INSERT INTO Branch VALUES ('B004', '32 Manse Rd',  'Bristol',  'BS99 1NZ');
+	INSERT INTO Branch VALUES ('B002', '56 Clover Dr', 'London',   'NW10 6EU');
+	
+	INSERT INTO Staff VALUES ('SL21', 'John', 'White','Manager',   'M', '1945-10-01', 30000, 'B005');
+	INSERT INTO Staff VALUES ('SG37', 'Ann',  'Beech','Assistant', 'F', '1960-10-11', 12000, 'B003');
+	INSERT INTO Staff VALUES ('SG14', 'David','Ford', 'Supervisor','M', '1958-11-24', 18000, 'B003');
+	INSERT INTO Staff VALUES ('SA9',  'Mary', 'Howe', 'Assistant', 'F', '1970-02-19', 9000, 'B007');
+	INSERT INTO Staff VALUES ('SG5',  'Susan','Brand','Manager',   'F', '1940-06-03', 24000, 'B003');
+	INSERT INTO Staff VALUES ('SL41', 'Julie','Lee',  'Assistant', 'F', '1965-06-13', 9000, 'B005');
+	
+	INSERT INTO PrivatOwner VALUES ('CO46', 'Joe',  'Keogh', '2 Fergus Dr, Aberdeen AB2 7SX','01224-861212');
+	INSERT INTO PrivatOwner VALUES ('CO87', 'Carol','Farrel','6 Achray St, Glasgow G32 9DX', '0141-357-7419');
+	INSERT INTO PrivatOwner VALUES ('CO40', 'Tina', 'Murphy','63 Well St, Glasgow G42',      '0141-943-1728');
+	INSERT INTO PrivatOwner VALUES ('CO93', 'Tony', 'Shaw',  '12 Park Pl, Glasgow G4 0QR',   '0141-225-7025');
+				
+	
+				
+	
+	INSERT INTO PropertyForRent VALUES ('PA14', '16 Holhead',  'Aberdeen', 'AB7 5SU', 'House','6', 650, 'CO46', 'SA9', 'B007');
+	INSERT INTO PropertyForRent VALUES ('PL94', '6 Argyll St',  'London',  'NW2',     'Flat', 4, 400, 'CO87', 'SL41', 'B005');
+	INSERT INTO PropertyForRent VALUES ('PG4',  '6 Lawrence St','Glasgow', 'G11 9QX', 'Flat', 3, 350, 'CO40', null, 'B003');
+	INSERT INTO PropertyForRent VALUES ('PG36', '2 Manor Rd',   'Glasgow', 'G32 4QX', 'Flat', 3, 375, 'CO93', 'SG37', 'B003');
+	INSERT INTO PropertyForRent VALUES ('PG21', '18 Dale Rd',   'Glasgow', 'G12',     'House',5, 600, 'CO87', 'SG37', 'B003');
+	INSERT INTO PropertyForRent VALUES ('PG16', '5 Novar Dr',   'Glasgow', 'G12 9AX', 'Flat', 4, 450, 'CO93', 'SG14', 'B003');
+	
+	INSERT INTO Client VALUES ('CR76', 'John', 'Kay',     '0207-774-5632', 'Flat',  425);
+	INSERT INTO Client VALUES ('CR56', 'Aline','Stewart', '0141-848-1825', 'Flat',  350);
+	INSERT INTO Client VALUES ('CR74', 'Mike', 'Ritchie', '01475-392178',  'House', 750);
+	INSERT INTO Client VALUES ('CR62', 'Mary', 'Tregar',  '01224-196720',  'Flat',  600);
+	
+	INSERT INTO Viewing VALUES ('CR56', 'PA14', '2001-05-24', 'too small');
+	INSERT INTO Viewing VALUES ('CR76', 'PG4',  '2001-04-20', 'too --ote');
+	INSERT INTO Viewing VALUES ('CR56', 'PG4',  '2001-05-26', NULL);
+	INSERT INTO Viewing VALUES ('CR62', 'PA14', '2001-05-14', 'no dining room');
+	INSERT INTO Viewing VALUES ('CR56', 'PG36', '2001-04-28', NULL);
+	
+	INSERT INTO Registration VALUES ('CR76', 'B005', 'SL41', '2001-01-02');
+	INSERT INTO Registration VALUES ('CR56', 'B003', 'SG37', '2000-04-11');
+	INSERT INTO Registration VALUES ('CR74', 'B003', 'SG37', '1999-11-16');
+	INSERT INTO Registration VALUES ('CR62', 'B007', 'SA9',  '2000-03-07');
+	
+	
+	
+	
+	
+	select branchno, city from branch;
+	select distinct branchno from staff order by branchno;
+	
+	select fname, lname, salary from staff where salary > 9000;
+															 
+2019-09-26 09:37:33 CEST ERROR:  syntax error at or near "'firstname'" at character 17
+2019-09-26 09:37:33 CEST STATEMENT:  select fname as 'firstname', lname, salary from staff where salary > 9000;
+2019-09-26 09:40:39 CEST ERROR:  invalid input syntax for type boolean: "Peter" at character 45
+2019-09-26 09:40:39 CEST STATEMENT:  select * from staff where fname = 'John' or 'Peter';
+2019-09-26 09:49:19 CEST ERROR:  column "staff.staffno" must appear in the GROUP BY clause or be used in an aggregate function at character 8
+2019-09-26 09:49:19 CEST STATEMENT:  select staffno, sum(salary) from staff;
+2019-09-26 09:49:50 CEST ERROR:  function average(d_salary) does not exist at character 22
+2019-09-26 09:49:50 CEST HINT:  No function matches the given name and argument types. You might need to add explicit type casts.
+2019-09-26 09:49:50 CEST STATEMENT:  
+	select sum(salary), average(salary) from staff;
